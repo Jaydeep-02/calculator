@@ -1,51 +1,108 @@
-function add(a, b) {
-    return a + b;
+const display = document.getElementById("display");
+const clearButton = document.getElementById("clear");
+const keypad = document.querySelector(".keypad");
+
+const operators = new Set(["+", "-", "*", "/", "%"]);
+
+function setDisplay(value) {
+    display.value = value || "0";
 }
 
-function subtract(a, b) {
-    return a - b;
-}
+function appendValue(value) {
+    const current = display.value;
 
-function multiply(a, b) {
-    return a * b;
-}
-
-function divide(a, b) {
-    if (b === 0) {
-        throw new Error("Cannot divide by zero");
+    if (current === "0" && !operators.has(value) && value !== ".") {
+        setDisplay(value);
+        return;
     }
-    return a / b;
+
+    const lastCharacter = current.slice(-1);
+    if (operators.has(value) && operators.has(lastCharacter)) {
+        setDisplay(current.slice(0, -1) + value);
+        return;
+    }
+
+    if (value === ".") {
+        const currentSegment = current.split(/[+\-*/%]/).pop();
+        if (currentSegment.includes(".")) {
+            return;
+        }
+    }
+
+    setDisplay(current + value);
 }
 
-// Event listeners for button clicks
-document.addEventListener('DOMContentLoaded', () => {
-    const resultDisplay = document.getElementById('result');
-    
-    document.getElementById('add').addEventListener('click', () => {
-        const num1 = parseFloat(document.getElementById('num1').value);
-        const num2 = parseFloat(document.getElementById('num2').value);
-        resultDisplay.textContent = add(num1, num2);
-    });
+function clearDisplay() {
+    setDisplay("0");
+}
 
-    document.getElementById('subtract').addEventListener('click', () => {
-        const num1 = parseFloat(document.getElementById('num1').value);
-        const num2 = parseFloat(document.getElementById('num2').value);
-        resultDisplay.textContent = subtract(num1, num2);
-    });
+function deleteLast() {
+    if (display.value.length <= 1) {
+        clearDisplay();
+        return;
+    }
 
-    document.getElementById('multiply').addEventListener('click', () => {
-        const num1 = parseFloat(document.getElementById('num1').value);
-        const num2 = parseFloat(document.getElementById('num2').value);
-        resultDisplay.textContent = multiply(num1, num2);
-    });
+    setDisplay(display.value.slice(0, -1));
+}
 
-    document.getElementById('divide').addEventListener('click', () => {
-        const num1 = parseFloat(document.getElementById('num1').value);
-        const num2 = parseFloat(document.getElementById('num2').value);
-        try {
-            resultDisplay.textContent = divide(num1, num2);
-        } catch (error) {
-            resultDisplay.textContent = error.message;
+function calculateResult() {
+    try {
+        const expression = display.value.replace(/%/g, "/100");
+        const result = Function(`"use strict"; return (${expression})`)();
+
+        if (!Number.isFinite(result)) {
+            throw new Error("Invalid result");
         }
-    });
+
+        setDisplay(String(Number(result.toFixed(8))));
+    } catch (error) {
+        setDisplay("Error");
+    }
+}
+
+keypad.addEventListener("click", (event) => {
+    const button = event.target.closest("button");
+    if (!button) {
+        return;
+    }
+
+    const { value, action } = button.dataset;
+
+    if (value) {
+        appendValue(value);
+        return;
+    }
+
+    if (action === "delete") {
+        deleteLast();
+        return;
+    }
+
+    if (action === "calculate") {
+        calculateResult();
+    }
+});
+
+clearButton.addEventListener("click", clearDisplay);
+
+document.addEventListener("keydown", (event) => {
+    if (/^[0-9]$/.test(event.key) || operators.has(event.key) || event.key === ".") {
+        appendValue(event.key);
+        return;
+    }
+
+    if (event.key === "Enter" || event.key === "=") {
+        event.preventDefault();
+        calculateResult();
+        return;
+    }
+
+    if (event.key === "Backspace") {
+        deleteLast();
+        return;
+    }
+
+    if (event.key === "Escape") {
+        clearDisplay();
+    }
 });

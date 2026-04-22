@@ -3,31 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator App</title>
+    <title>CalcCraft</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-    <div class="calculator">
-        <input type="text" id="display" disabled>
-        <div class="buttons">
-            <button onclick="clearDisplay()">C</button>
-            <button onclick="appendToDisplay('7')">7</button>
-            <button onclick="appendToDisplay('8')">8</button>
-            <button onclick="appendToDisplay('9')">9</button>
-            <button onclick="appendToDisplay('/')">/</button>
-            <button onclick="appendToDisplay('4')">4</button>
-            <button onclick="appendToDisplay('5')">5</button>
-            <button onclick="appendToDisplay('6')">6</button>
-            <button onclick="appendToDisplay('*')">*</button>
-            <button onclick="appendToDisplay('1')">1</button>
-            <button onclick="appendToDisplay('2')">2</button>
-            <button onclick="appendToDisplay('3')">3</button>
-            <button onclick="appendToDisplay('-')">-</button>
-            <button onclick="appendToDisplay('0')">0</button>
-            <button onclick="calculateResult()">=</button>
-            <button onclick="appendToDisplay('+')">+</button>
-        </div>
-    </div>
+    <main class="app-shell">
+        <section class="calculator" aria-label="Calculator">
+            <header class="calculator__header">
+                <div class="brand" aria-label="CalcCraft logo">
+                    <div class="brand__mark" aria-hidden="true">
+                        <svg viewBox="0 0 64 64" role="img" focusable="false">
+                            <rect x="8" y="8" width="48" height="48" rx="14"></rect>
+                            <path d="M22 24h20M22 32h20M22 40h8M38 40h4"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="brand__eyebrow">Smart calculator</p>
+                        <h1>CalcCraft</h1>
+                    </div>
+                </div>
+                <button class="icon-button" type="button" id="clear" aria-label="Clear all">AC</button>
+            </header>
+
+            <label class="screen" for="display">
+                <span class="screen__label">Display</span>
+                <input type="text" id="display" value="0" readonly aria-live="polite">
+            </label>
+
+            <div class="keypad" aria-label="Calculator controls">
+                <button type="button" class="key key--muted" data-action="delete">DEL</button>
+                <button type="button" class="key key--muted" data-value="%">%</button>
+                <button type="button" class="key key--accent" data-value="/">/</button>
+                <button type="button" class="key key--accent" data-value="*">*</button>
+
+                <button type="button" class="key" data-value="7">7</button>
+                <button type="button" class="key" data-value="8">8</button>
+                <button type="button" class="key" data-value="9">9</button>
+                <button type="button" class="key key--accent" data-value="-">-</button>
+
+                <button type="button" class="key" data-value="4">4</button>
+                <button type="button" class="key" data-value="5">5</button>
+                <button type="button" class="key" data-value="6">6</button>
+                <button type="button" class="key key--accent" data-value="+">+</button>
+
+                <button type="button" class="key" data-value="1">1</button>
+                <button type="button" class="key" data-value="2">2</button>
+                <button type="button" class="key" data-value="3">3</button>
+                <button type="button" class="key key--equal" data-action="calculate">=</button>
+
+                <button type="button" class="key key--wide" data-value="0">0</button>
+                <button type="button" class="key" data-value=".">.</button>
+            </div>
+
+            <p class="hint">You can also use your keyboard for quick input.</p>
+        </section>
+    </main>
+
     <script src="scripts/calculator.js"></script>
 </body>
 </html>
