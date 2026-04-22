@@ -1,47 +1,52 @@
-# Calculator Application
+# CalcCraft
 
-This is a simple calculator application built with HTML, CSS, and JavaScript. It allows users to perform basic arithmetic operations such as addition, subtraction, multiplication, and division.
+A modern calculator app built with HTML, CSS, and JavaScript.
 
-## Project Structure
+## Overview
 
-```
-calculator-app
-├── src
-│   ├── index.html        # Main HTML file for the calculator application
-│   ├── styles
-│   │   └── style.css     # Styles for the calculator application
-│   └── scripts
-│       └── calculator.js  # JavaScript code for calculator functionality
-├── package.json          # Configuration file for npm
-└── README.md             # Documentation for the project
-```
-
-## Installation
-
-1. Clone the repository:
-   ```
-   git clone <repository-url>
-   ```
-2. Navigate to the project directory:
-   ```
-   cd calculator-app
-   ```
-3. Install the dependencies:
-   ```
-   npm install
-   ```
-
-## Usage
-
-1. Open `src/index.html` in a web browser.
-2. Use the input fields to enter numbers and click the operation buttons to perform calculations.
-3. The results will be displayed on the interface.
+CalcCraft is a simple single-page calculator with a cleaner interface, a custom logo, and responsive styling. It supports both button input and keyboard input, making it easy to use on desktop and mobile.
 
 ## Features
 
-- Basic arithmetic operations: addition, subtraction, multiplication, and division.
-- User-friendly interface with responsive design.
+- Clean branded UI with a custom calculator logo
+- Basic arithmetic operations: `+`, `-`, `*`, `/`
+- Percent support with `%`
+- Decimal input handling
+- `AC` clear and `DEL` delete actions
+- Keyboard shortcuts for numbers, operators, `Enter`, `Backspace`, and `Esc`
+- Responsive layout for smaller screens
 
-## Contributing
+## Project Structure
 
-Feel free to submit issues or pull requests if you have suggestions or improvements for the project.
+```text
+calculator-app/
+  src/
+    index.html
+    styles/style.css
+    scripts/calculator.js
+  package.json
+  README.md
+```
+
+## Run Locally
+
+```bash
+npm install
+npm start
+```
+
+Then open the local URL shown by `live-server`.
+
+## Direct Usage
+
+You can also open `src/index.html` directly in a browser.
+
+## Tech Stack
+
+- HTML5
+- CSS3
+- JavaScript
+
+## Repository
+
+GitHub: `https://github.com/Jaydeep-02/calculator`
